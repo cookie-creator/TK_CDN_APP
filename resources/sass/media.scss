@@ -1,0 +1,9 @@
+.media-add {
+  display: block;
+  visibility: visible;
+  &.hidden-block {
+    display: none;
+    visibility: hidden;
+  }
+}
+

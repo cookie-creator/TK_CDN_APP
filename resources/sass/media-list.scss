@@ -1,0 +1,38 @@
+.media-list {
+    display: grid;
+    grid-template-columns:  repeat(auto-fill, minmax(300px, 1fr));
+    gap: 10px;
+    .media-item {
+        margin-bottom: 20px;
+        text-align: center;
+        &.folder {
+            &:hover {
+                cursor: pointer;
+                .media-name {
+                    span {
+                        color: #0099ff;
+                    }
+                }
+            }
+        }
+        .media-file {
+            display: block;
+            text-align: center;
+            img {
+                width: 100%;
+            }
+            svg {
+                margin: 0 auto;
+            }
+        }
+        .media-name {
+            padding: 5px;
+            //text-align: center;
+            span {}
+        }
+        .media-delete {
+            padding: 5px;
+            //text-align: center;
+        }
+    }
+}

@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\MediaController;
+use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -8,11 +10,32 @@ use Illuminate\Support\Facades\Route;
 |--------------------------------------------------------------------------
 |
 | Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
+| routes are loaded by the RouteServiceProvider and all of them will
+| be assigned to the "web" middleware group. Make something great!
 |
 */
 
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/test', function () {
+    return view('media');
+});
+
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+    Route::get('/files', [MediaController::class, 'index'])->name('media.index');
+    Route::get('/files-vue', [MediaController::class, 'indexVue'])->name('media.index.vue');
+    Route::post('/files', [MediaController::class, 'store'])->name('media.store');
+    Route::get('/files/delete', [MediaController::class, 'destroy'])->name('media.destroy');
+});
+
+require __DIR__.'/auth.php';
